@@ -3,244 +3,301 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Galaxy Panel Login</title>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<title>Login Panel</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
-    body {
-        margin: 0;
-        padding: 0;
-        font-family: 'Inter', sans-serif;
-        background: #050014;
-        overflow: hidden;
-        height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-    /* PLANETS */
-    .planet {
-        position: absolute;
-        border-radius: 50%;
-        filter: blur(0.5px);
-    }
+body {
+    font-family: "Inter", sans-serif;
+    height: 100vh;
+    overflow: hidden;
+    background: radial-gradient(circle at bottom, #050414 0%, #02010a 100%);
+    position: relative;
+}
 
-    .planet.blue {
-        width: 260px;
-        height: 260px;
-        background: radial-gradient(circle, #66aaff, #315eff);
-        top: -40px;
-        left: -20px;
-    }
+/* 🌟 Stars Layer */
+.stars {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    position: absolute;
+    overflow: hidden;
+}
 
-    .planet.orange {
-        width: 150px;
-        height: 150px;
-        background: radial-gradient(circle, #ffcc66, #ff7b00);
-        top: 80px;
-        right: 30px;
-    }
+.stars span {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    opacity: 0.8;
+    animation: twinkle 3s infinite ease-in-out;
+}
+@keyframes twinkle {
+    0%,100% { opacity: .2; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.5); }
+}
 
-    .planet.purple {
-        width: 170px;
-        height: 170px;
-        background: radial-gradient(circle, #c08aff, #8b3bff);
-        bottom: 40px;
-        right: 70px;
-        position: absolute;
-    }
+/* 🌍 Planet Orbit */
+.planet-container {
+    width: 450px;
+    height: 450px;
+    position: absolute;
+    top: -120px;
+    right: -80px;
+    animation: rotate 35s linear infinite;
+}
 
-    .planet.purple::after {
-        content: "";
-        position: absolute;
-        width: 220px;
-        height: 70px;
-        border: 4px solid rgba(255, 255, 255, 0.5);
-        border-radius: 50%;
-        top: 50px;
-        left: -25px;
-        transform: rotate(15deg);
-        opacity: 0.6;
-    }
+@keyframes rotate {
+    100% { transform: rotate(360deg); }
+}
 
-    /* STARS */
-    .star {
-        position: absolute;
-        width: 2px;
-        height: 2px;
-        background: white;
-        opacity: 0.7;
-    }
+.planet {
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle, #8fe7ff, #2968ff);
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    margin-top: -60px;
+    box-shadow: 0 0 40px rgba(0,140,255,0.8);
+}
 
-    /* LOGIN CARD */
-    .login-card {
-        width: 85%;
-        max-width: 420px;
-        background: rgba(20, 0, 50, 0.45);
-        padding: 32px;
-        border-radius: 20px;
-        backdrop-filter: blur(18px);
-        border: 1px solid rgba(255,255,255,0.08);
-        box-shadow: 0 0 40px rgba(120, 40, 255, 0.3);
-        position: relative;
-        z-index: 10;
-    }
+/* 🌑 Another planet */
+.planet2 {
+    width: 70px;
+    height: 70px;
+    background: radial-gradient(circle, #ffcf91, #ff8730);
+    border-radius: 50%;
+    position: absolute;
+    top: 10%;
+    left: 60%;
+    box-shadow: 0 0 25px rgba(255,140,0,0.6);
+}
 
-    .login-card h2 {
-        text-align: center;
-        color: white;
-        font-size: 2rem;
-        margin-bottom: 5px;
-    }
+/* 🪐 Saturn-like planet */
+.saturn {
+    width: 90px;
+    height: 90px;
+    background: radial-gradient(circle, #d1a7ff, #7a3bff);
+    border-radius: 50%;
+    position: absolute;
+    bottom: 5%;
+    right: 20%;
+    box-shadow: 0 0 40px rgba(150,90,255,0.7);
+}
+.saturn::after {
+    content: "";
+    position: absolute;
+    width: 140px;
+    height: 40px;
+    border: 4px solid rgba(255,255,255,0.5);
+    border-radius: 50%;
+    top: 25%;
+    left: -25px;
+    transform: rotate(25deg);
+}
 
-    .subtitle {
-        text-align: center;
-        color: #c9c9ff;
-        font-size: 0.95rem;
-        margin-bottom: 30px;
-    }
+/* 🌌 Login Glass Panel */
+.login-box {
+    width: 370px;
+    padding: 2.5rem;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(18px);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 22px;
+    position: absolute;
+    left: 60px;
+    top: 50%;
+    transform: translateY(-50%);
+    box-shadow: 0 0 35px rgba(120,100,255,0.4);
+    animation: fadeIn 1.5s ease forwards;
+}
 
-    label {
-        color: #dcdcff;
-        font-size: 0.9rem;
-        margin-bottom: 6px;
-        display: block;
-    }
+@keyframes fadeIn {
+    from { opacity: 0; transform: translate(-40px,-50%); }
+    to   { opacity: 1; transform: translate(0,-50%); }
+}
 
-    .input-group {
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255,255,255,0.15);
-        padding: 12px;
-        border-radius: 12px;
-        display: flex;
-        align-items: center;
-        margin-bottom: 18px;
-    }
+.login-box h1 {
+    font-size: 1.9rem;
+    color: #e7e9ff;
+    margin-bottom: .4rem;
+    text-shadow: 0 0 12px rgba(180,180,255,0.7);
+}
 
-    .input-group i {
-        color: #ccc;
-        margin-right: 10px;
-        font-size: 1.1rem;
-    }
+.subtitle {
+    color: #bfc3ff;
+    margin-bottom: 1.8rem;
+}
 
-    .input-group input {
-        background: transparent;
-        border: none;
-        outline: none;
-        color: white;
-        font-size: 1rem;
-        width: 100%;
-    }
+label {
+    color: #dadcff;
+    font-size: .85rem;
+    margin-bottom: .3rem;
+    display: block;
+}
 
-    .btn {
-        width: 100%;
-        padding: 14px;
-        border: none;
-        border-radius: 12px;
-        background: linear-gradient(90deg, #9b4dff, #4a9fff);
-        color: white;
-        font-size: 1.1rem;
-        font-weight: 600;
-        cursor: pointer;
-        box-shadow: 0 5px 25px rgba(90,120,255,0.4);
-    }
+.input-wrap {
+    margin-bottom: 1.3rem;
+    position: relative;
+}
 
-    .btn:active {
-        transform: scale(0.98);
-    }
+.input-wrap i {
+    position: absolute;
+    top: 50%;
+    left: 14px;
+    transform: translateY(-50%);
+    color: #9fa4ff;
+}
 
-    .error-box {
-        background: rgba(255, 80, 80, 0.18);
-        padding: 10px;
-        border-radius: 10px;
-        border: 1px solid rgba(255,80,80,0.3);
-        margin-bottom: 12px;
-        display: none;
-        color: #ffbbbb;
-        font-size: .9rem;
-    }
+input {
+    width: 100%;
+    padding: .85rem 1rem .85rem 2.7rem;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.1);
+    border-radius: 12px;
+    font-size: 1rem;
+    color: white;
+}
+input:focus {
+    outline: none;
+    box-shadow: 0 0 10px rgba(150,130,255,0.7);
+}
+
+/* Login Button */
+.login-btn {
+    width: 100%;
+    padding: .9rem;
+    cursor: pointer;
+    border: none;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: white;
+    border-radius: 12px;
+    background: linear-gradient(90deg, #7a3bff, #4a8cff);
+    box-shadow: 0 0 20px rgba(130,70,255,0.6);
+    transition: .25s;
+}
+.login-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 30px rgba(130,70,255,0.8);
+}
+
+.error {
+    background: rgba(255,90,90,0.2);
+    border: 1px solid rgba(255,90,90,0.4);
+    padding: .8rem;
+    border-radius: 12px;
+    color: #ffb3b3;
+    margin-bottom: .8rem;
+    display: none;
+}
+
 </style>
 </head>
-
 <body>
 
-<!-- PLANETS -->
-<div class="planet blue"></div>
-<div class="planet orange"></div>
-<div class="planet purple"></div>
+<!-- 🌟 Stars -->
+<div class="stars">
+    <script>
+        for (let i = 0; i < 120; i++) {
+            const star = document.createElement("span");
+            star.style.left = Math.random() * 100 + "%";
+            star.style.top = Math.random() * 100 + "%";
+            star.style.animationDuration = 1 + Math.random() * 3 + "s";
+            document.querySelector(".stars").appendChild(star);
+        }
+    </script>
+</div>
 
-<!-- STARS -->
-<script>
-for (let i = 0; i < 120; i++) {
-    const s = document.createElement("div");
-    s.className = "star";
-    s.style.top = Math.random() * 100 + "%";
-    s.style.left = Math.random() * 100 + "%";
-    s.style.opacity = 0.3 + Math.random();
-    document.body.appendChild(s);
-}
-</script>
+<!-- 🪐 PLANETS -->
+<div class="planet-container">
+    <div class="planet"></div>
+</div>
+<div class="planet2"></div>
+<div class="saturn"></div>
 
-<!-- LOGIN CARD -->
-<div class="login-card">
-    <h2>Galaxy Panel</h2>
-    <div class="subtitle">Enter your access to the cosmos</div>
+<!-- 🌌 Login Box -->
+<div class="login-box">
+    <h1>LOGIN</h1>
+    <p class="subtitle">Masukan Unsername dan Pasword </p>
 
-    <div id="errorBox" class="error-box"></div>
+    <div id="loginError" class="error"></div>
 
-    <label>Username</label>
-    <div class="input-group">
-        <i class="fas fa-user"></i>
-        <input id="username" type="text" placeholder="Enter username" autocomplete="off">
-    </div>
+    <form id="loginForm">
+        <label>Username</label>
+        <div class="input-wrap">
+            <i class="fas fa-user"></i>
+            <input id="username" required>
+        </div>
 
-    <label>Password</label>
-    <div class="input-group">
-        <i class="fas fa-lock"></i>
-        <input id="password" type="password" placeholder="Enter password">
-    </div>
+        <label>Password</label>
+        <div class="input-wrap">
+            <i class="fas fa-lock"></i>
+            <input type="password" id="password" required>
+        </div>
 
-    <button class="btn" onclick="login()">Login</button>
+        <button class="login-btn" id="loginBtn">
+            <span id="loginText">Login</span>
+        </button>
+    </form>
 </div>
 
 <script>
-async function login() {
-    const user = document.getElementById("username").value.trim();
-    const pass = document.getElementById("password").value.trim();
-    const error = document.getElementById("errorBox");
+const JSON_AUTH_URL = window.location.origin + "/api/login";
 
-    error.style.display = "none";
+document.getElementById("loginForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-    if (!user || !pass) {
-        error.textContent = "Fill all fields.";
-        error.style.display = "block";
-        return;
-    }
+    const user = username.value.trim();
+    const pass = password.value.trim();
+
+    const err = document.getElementById("loginError");
+    const btn = document.getElementById("loginBtn");
+    const txt = document.getElementById("loginText");
+
+    err.style.display = "none";
+    btn.disabled = true;
+    txt.innerHTML = "<i class='fa fa-spinner fa-spin'></i>";
 
     try {
-        const res = await fetch("/api/login", {
+        const req = await fetch(JSON_AUTH_URL, {
             method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({username: user, password: pass})
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                username: user,
+                password: pass
+            })
         });
 
-        const data = await res.json();
+        const data = await req.json();
 
-        if (!res.ok || !data.success) {
-            error.textContent = data.error || "Incorrect username or password.";
-            error.style.display = "block";
-            return;
+        if (req.ok && data.success) {
+            localStorage.setItem("authData", JSON.stringify({ user, pass }));
+            txt.innerHTML = "🚀 Launching...";
+            setTimeout(() => location.href = "dashboard.html", 700);
+        } else {
+            err.textContent = data.error || "Incorrect credentials";
+            err.style.display = "block";
+            btn.disabled = false;
+            txt.innerHTML = "Login";
         }
-
-        localStorage.setItem("panelUser", JSON.stringify(data.user));
-        window.location.href = "dashboard.html";
-
-    } catch (e) {
-        error.textContent = "Failed connecting to server.";
-        error.style.display = "block";
+    } catch (error) {
+        err.textContent = "lu belum dapet akses dari Namz";
+        err.style.display = "block";
+        btn.disabled = false;
+        txt.innerHTML = "Login";
     }
-}
+});
 </script>
 
 </body>
